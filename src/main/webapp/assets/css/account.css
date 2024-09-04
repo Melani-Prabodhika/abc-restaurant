@@ -1,0 +1,122 @@
+body {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+}
+
+.wrapper {
+    display: flex;
+    flex: 1;
+}
+
+.nav {
+    --bs-nav-link-padding-x: 0.2rem;
+}
+
+.side-nav {
+    min-width: 250px;
+    background-color: #343a40;
+    padding: 20px;
+    color: #fff;
+}
+
+.side-nav a {
+    color: #fff;
+    text-decoration: none;
+}
+
+.side-nav .user-info {
+    margin-bottom: 20px;
+}
+
+.side-nav .user-info h6 {
+    margin: 0;
+    padding-top: 10px;
+    padding-bottom: 3px;
+    font-size: 18px;
+}
+
+.side-nav .collapse {
+    padding-left: 15px;
+}
+
+.side-nav .collapse .nav-link {
+    padding: 5px 0;
+}
+
+.side-nav .dropdown-item:hover {
+    background-color: #495057;
+}
+
+.content {
+    flex: 1;
+    padding: 0px 0px 20px 0px;
+}
+
+.top-header {
+    box-shadow: 3px 2px 5px 2px  #060606a7;
+}
+
+.top-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding: 20px;
+}
+
+.top-section .search-input {
+    max-width: 300px;
+}
+
+#example_wrapper {
+    padding: 0px 20px 20px 20px;
+}
+
+.title-section {
+    padding: 0px 10px 0px 10px;
+}
+
+.title-section h5 {
+    font-size: 20px;
+    margin-left: 15px;
+}
+
+footer {
+    background-color: #343a40;
+    color: #fff;
+    text-align: center;
+    padding: 10px;
+}
+
+footer p {
+    margin: 0px;
+}
+
+@media (max-width: 768px) {
+    .wrapper {
+        flex-direction: column;
+    }
+
+    .side-nav {
+        width: 100%;
+    }
+
+    .content {
+        padding: 10px;
+    }
+
+    .top-section {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .top-section .search-input {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+
+    .top-section .btn {
+        width: 100%;
+    }
+}
