@@ -13,12 +13,7 @@ public class DBConnection {
     private Connection connection;
 
     private DBConnection() {
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            this.connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
-        } catch (ClassNotFoundException | SQLException e) {
-            e.printStackTrace();
-        }
+        // The connection is not created in the constructor
     }
 
     public static DBConnection getInstance() {
@@ -32,7 +27,26 @@ public class DBConnection {
         return instance;
     }
 
-    public Connection getConnection() {
+    public Connection getConnection() throws SQLException {
+        if (connection == null || connection.isClosed()) {
+            try {
+                Class.forName("com.mysql.cj.jdbc.Driver");
+                connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
+                connection.setAutoCommit(true);  // Ensure autocommit is on
+            } catch (ClassNotFoundException e) {
+                throw new SQLException("Database driver not found", e);
+            }
+        }
         return connection;
+    }
+
+    public void closeConnection() {
+        if (connection != null) {
+            try {
+                connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }

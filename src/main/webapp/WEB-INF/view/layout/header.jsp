@@ -37,8 +37,8 @@
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                             <ul>
                                 <!-- <li class="fa fa-user"><a href="#">User</a></li> -->
-                                <li><a href="signup.html">Sign Up</a></li>
-                                <li><a href="login.html">Sign In</a></li>
+                                <li><a href="/auth?action=signup">Sign Up</a></li>
+                                <li><a href="/auth?action=login">Sign In</a></li>
                             </ul>
                         </div>
                     </div>

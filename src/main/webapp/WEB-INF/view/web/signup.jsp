@@ -9,7 +9,7 @@
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-    <link rel="stylesheet" href="css/style.css"/>
+    <link rel="stylesheet" href="/assets/css/styles.css"/>
 
 </head>
 
@@ -19,13 +19,13 @@
         <div class="col-md-6 signup-side d-flex flex-column justify-content-between">
             <div>
                 <div class="signup-header">
-                    <a href="index.html" class="btn btn-link"><i class="fa-solid fa-angle-left"></i> Back to Home</a>
+                    <a href="/" class="btn btn-link"><i class="fa-solid fa-angle-left"></i> Back to Home</a>
                 </div>
                 <div class="signup-content">
                     <div class="logo"><!--<img src="img/sla.png" alt="">--><h2 class="res-title"><strong>ABC Restaurant</strong></h2></div>
                     <h2 class="signup-form-title">Sign Up Form</h2>
                     <h5 class="signup-form-heading">Create a new account</h5>
-                    <form>
+                    <form id="signupForm" method="post">
                         <div class="form-group">
                             <label for="name">Full Name</label>
                             <input type="text" class="form-control" id="name" placeholder="Enter your full name" required/>
@@ -64,15 +64,15 @@
                         <button type="submit" class="btn signup-form-signup-button">Sign Up</button>
                     </form>
                 </div>
-                <div class="signup-form-login-text">Already have an account? <a href="login.html">Sign in</a></div>
+                <div class="signup-form-login-text">Already have an account? <a href="/auth?action=login">Sign in</a></div>
                 <div class="signup-form-or-login-with">
                     <div class="signup-form-divider-line"></div>
                     <div class="signup-form-or-login-with-text">Or sign up with</div>
                     <div class="signup-form-divider-line"></div>
                 </div>
                 <div class="signup-form-social-logos">
-                    <a href="#"><img src="img/Ellipse 31.png" alt="Google Logo" /></a>
-                    <a href="#"><img src="img/Ellipse 30.png" alt="Facebook Logo" /></a>
+                    <a href="#"><img src="/assets/img/Ellipse 31.png" alt="Google Logo" /></a>
+                    <a href="#"><img src="/assets/img/Ellipse 30.png" alt="Facebook Logo" /></a>
                 </div>
             </div>
             <div class="signup-footer">
@@ -92,9 +92,97 @@
 
 <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 
-<script src="js/main.js"></script>
+<script src="/assets/js/main.js"></script>
 
-<script src="https://www.google.com/recaptcha/api.js" async defer></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<%--<script src="https://www.google.com/recaptcha/api.js" async defer></script>--%>
+
+<script>
+    $(document).ready(function() {
+        $('#signupForm').submit(function(e) {
+            e.preventDefault();
+
+            // Basic form validation
+            var name = $('#name').val().trim();
+            var phone = $('#phone').val().trim();
+            var email = $('#email').val().trim();
+            var address = $('#address').val().trim();
+            var password = $('#password').val();
+            var cpassword = $('#cpassword').val();
+
+            if (name === '' || phone === '' || email === '' || address === '' || password === '' || cpassword === '') {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Please fill in all fields!'
+                });
+                return;
+            }
+
+            if (password !== cpassword) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Password Mismatch',
+                    text: 'The passwords you entered do not match!'
+                });
+                return;
+            }
+
+            // Email validation
+            var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Invalid Email',
+                    text: 'Please enter a valid email address!'
+                });
+                return;
+            }
+
+
+            // If validation passes, make AJAX request
+            $.ajax({
+                url: '/auth?action=register',
+                method: 'POST',
+                data: {
+                    name: $('#name').val(),
+                    phone: $('#phone').val(),
+                    email: $('#email').val(),
+                    address: $('#address').val(),
+                    password: $('#password').val()
+                },
+                dataType: 'json',
+                success: function(response) {
+                    if (response.success) {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Success!',
+                            text: response.message
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                window.location.href = '/auth?action=login';
+                            }
+                        });
+                    } else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Registration Failed',
+                            text: response.message
+                        });
+                    }
+                },
+                error: function(xhr, status, error) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Registration Failed',
+                        text: 'An error occurred while creating your account. Please try again later.'
+                    });
+                }
+            });
+        });
+    });
+</script>
 
 </body>
 
