@@ -1,3 +1,5 @@
+    </div>
+</div>
 <!-- Footer Start  -->
 <div class="footer-section-area padding-top-bottom">
     <div class="container">
@@ -80,7 +82,7 @@
         <div class="row">
             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
                 <div class="copy-right">
-                    <p>ABC Restaurant ©2024 All Rights Reserved</p>
+                    <p>ABC Restaurant &copy; 2024 All Rights Reserved</p>
                 </div>
             </div>
         </div>
@@ -88,22 +90,11 @@
 </div>
 <!-- End Copyright -->
 
-<!-- Slider -->
-<script>
-    let nav = document.querySelector('nav');
-
-    window.addEventListener('scroll',function(){
-        if(window.pageXOffset > 100){
-            nav.classList.add('','');
-        }
-    })
-</script>
-
 <!-- Bootstrap JS  -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 
 <!-- main js -->
-<script src="${pageContext.request.contextPath}/assets/js/main.js"></script>
+<script src="/assets/js/main.js"></script>
 
 </body>
 </html>

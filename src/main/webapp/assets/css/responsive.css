@@ -259,6 +259,7 @@
         vertical-align: middle;
     }
     .header .header-top-area .nav-bar .logo-area .img-responsive{
+        margin-top: 5px;
         width: 75%;
         height: 65%;
     }

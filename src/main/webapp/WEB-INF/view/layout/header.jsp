@@ -36,9 +36,12 @@
                     <div class="row">
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                             <ul>
-                                <!-- <li class="fa fa-user"><a href="#">User</a></li> -->
+                                <% if (session.getAttribute("user_id") == null) { %>
                                 <li><a href="/auth?action=signup">Sign Up</a></li>
                                 <li><a href="/auth?action=login">Sign In</a></li>
+                                <% } else { %>
+                                <li><a href="/auth?action=logout">Logout</a></li>
+                                <% } %>
                             </ul>
                         </div>
                     </div>
@@ -47,21 +50,21 @@
                     <div class="container">
                         <div class="row">
                             <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
-                                <div class="logo-area"> <a href="#"><img class="img-responsive" src="/assets/img/sla.png" alt="logo"></a></div>
+                                <div class="logo-area"> <a href="#"><img class="img-responsive" src="/assets/img/logo.png" alt="logo"></a></div>
                             </div>
                             <div class="col-lg-7 col-md-7 col-sm-9 col-xs-12">
                                 <div class="main-menu">
                                     <nav>
                                         <ul>
                                             <li class="active"><a href="#"></a>
-                                            <li><a href="index.html">Home</a></li>
+                                            <li><a href="/">Home</a></li>
                                             </li>
-                                            <li><a href="about.html">About</a></li>
+                                            <li><a href="/WEB-INF/view/web/about.jsp">About</a></li>
                                             <li><a href="#">Menu</a></li>
-                                            <li><a href="gallery.html">Gallery</a></li>
+                                            <li><a href="/WEB-INF/view/web/gallery.jsp">Gallery</a></li>
                                             <li><a href="#offer">Offers</a></li>
-                                            <li><a href="reservation.html">Reservation</a></li>
-                                            <li><a href="contact.html">Contact</a></li>
+                                            <!--<li><a href="reservation.html">Reservation</a></li>-->
+                                            <li><a href="/WEB-INF/view/web/contact.jsp">Contact</a></li>
                                         </ul>
                                     </nav>
                                 </div>

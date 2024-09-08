@@ -9,13 +9,13 @@
                     <input type="radio" name="radio-btn" id="radio2">
                     <input type="radio" name="radio-btn" id="radio3">
                     <div class="slide first">
-                        <img src="img/pexels-boonkong-boonpeng-1134176 (2).jpg" alt="">
+                        <img src="/assets/img/savory-mexican-food-composition.jpg" alt="">
                     </div>
                     <div class="slide">
-                        <img src="img/leisure-beautiful-health-garden-landscape.jpg" alt="">
+                        <img src="/assets/img/top-view-table-full-delicious-food-composition.jpg" alt="">
                     </div>
                     <div class="slide">
-                        <img src="img/pexels-quang-nguyen-vinh-6130049 (2).jpg" alt="">
+                        <img src="/assets/img/tasty-traditional-pizza-composition.jpg" alt="">
                     </div>
                     <div class="navigation-auto">
                         <div class="auto-btn1"></div>
@@ -287,12 +287,25 @@
                     </div>
                 </div>
             </div>
-            <div class="navigation-manual">
+           <!-- <div class="navigation-manual">
                 <label for="radio1" class="manual-btn"></label>
                 <label for="radio2" class="manual-btn"></label>
-            </div>
+            </div> -->
         </div>
     </div>
 </div>
+
 <!-- End Offers -->
-<%@include file="/WEB-INF/view/layout/header.jsp" %>
+
+<!-- Slider -->
+<script>
+    let nav = document.querySelector('nav');
+
+    window.addEventListener('scroll',function(){
+        if(window.pageXOffset > 100){
+            nav.classList.add('','');
+        }
+    })
+</script>
+
+<%@include file="/WEB-INF/view/layout/footer.jsp" %>

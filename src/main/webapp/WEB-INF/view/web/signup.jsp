@@ -22,7 +22,7 @@
                     <a href="/" class="btn btn-link"><i class="fa-solid fa-angle-left"></i> Back to Home</a>
                 </div>
                 <div class="signup-content">
-                    <div class="logo"><!--<img src="img/sla.png" alt="">--><h2 class="res-title"><strong>ABC Restaurant</strong></h2></div>
+                    <div class="logo d-flex justify-content-center"><img src="/assets/img/logo.png" alt="" width="200" height="50"></div>
                     <h2 class="signup-form-title">Sign Up Form</h2>
                     <h5 class="signup-form-heading">Create a new account</h5>
                     <form id="signupForm" method="post">
@@ -77,10 +77,10 @@
             </div>
             <div class="signup-footer">
                 <div class="signup-footer-left"><a href="">Privacy Policy</a></div>
-                <div class="signup-footer-right">Copyright © 2023</div>
+                <div class="signup-footer-right">ABC Restaurant &copy; 2024 All Rights Reserved</div>
             </div>
         </div>
-        <div class="col-md-6 image-side"></div>
+        <div class="col-md-6 image-side2"></div>
     </div>
 </div>
 
@@ -161,7 +161,7 @@
                             text: response.message
                         }).then((result) => {
                             if (result.isConfirmed) {
-                                window.location.href = '/auth?action=login';
+                                window.location.href = response.returnUrl;
                             }
                         });
                     } else {

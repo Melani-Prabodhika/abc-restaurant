@@ -2,8 +2,11 @@ package com.abc.res.service;
 
 import com.abc.res.dao.AuthDao;
 import com.abc.res.dao.AuthDaoImpl;
+import com.abc.res.model.LoginModel;
 import com.abc.res.model.User;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 import java.util.regex.Pattern;
@@ -23,12 +26,33 @@ public class AuthService {
         return new AuthDaoImpl();
     }
 
+    private void setUserSession(HttpServletRequest req, User user) {
+        HttpSession session = req.getSession();
+        session.setMaxInactiveInterval(60 * 60);
+        session.setAttribute("user_id", user.getUserId());
+        session.setAttribute("ut_id", user.getUtId());
+        session.setAttribute("user_name", user.getUserName());
+        session.setAttribute("contact_no", user.getContactNo());
+        session.setAttribute("email", user.getEmail());
+        session.setAttribute("address", user.getAddress());
+        session.setAttribute("status", user.getStatus());
+        session.setAttribute("branch_id", user.getBranchId());
+    }
+
+    private String determineRedirectUrl(int ut_id, String contextPath) {
+        return switch (ut_id) {
+            case 1 -> contextPath + "/admin";
+            case 2 -> contextPath + "/staff";
+            default -> contextPath + "/";
+        };
+    }
+
     public boolean registerUser(User user) throws SQLException, NoSuchAlgorithmException {
         // Validate user data
         StringBuilder errorMessage = new StringBuilder();
 
         if (user.getUserName() == null || user.getUserName().trim().isEmpty()) {
-            errorMessage.append("Username cannot be empty. ");
+            errorMessage.append("User name cannot be empty. ");
         }
 
         if (user.getContactNo() == null || !Pattern.matches("\\d{10}", user.getContactNo())) {
@@ -58,5 +82,17 @@ public class AuthService {
 
         // Save the user to the database
         return getAuthDao().registerUser(user);
+    }
+
+    public String loginUser(LoginModel loginModel, HttpServletRequest req) throws SQLException, ClassNotFoundException, NoSuchAlgorithmException {
+        User user = getAuthDao().loginUser(loginModel);
+
+        if(user != null) {
+            setUserSession(req, user);
+            String redirectUrl = determineRedirectUrl(user.getUtId(), req.getContextPath());
+            return redirectUrl;
+        } else {
+            return null;
+        }
     }
 }

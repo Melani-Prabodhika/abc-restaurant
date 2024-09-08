@@ -16,13 +16,12 @@ public class User {
 
     // Constructor
     public User(int utId, String userName, String contactNo, String email,
-                String address, String password) {
+                String address) {
         this.utId = utId;
         this.userName = userName;
         this.contactNo = contactNo;
         this.email = email;
         this.address = address;
-        this.password = password;
     }
 
     // Getters and Setters

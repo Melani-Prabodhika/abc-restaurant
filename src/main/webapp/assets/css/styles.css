@@ -122,7 +122,7 @@ ul {
 .header .header-top-area .nav-bar .logo-area .img-responsive{
     padding: 10px;
     width: 100%;
-    height: 95%;
+    height: 60%;
     padding-top: 12px;
 }
 
@@ -319,7 +319,7 @@ ul {
 
 #home:before {
     content: "";
-    background: rgba(0, 0, 0, 0.5) none repeat scroll 0 0;
+    background: rgb(0 0 0 / 57%) none repeat scroll 0 0;
     width: 100%;
     height: 100%;
     position: absolute;
@@ -1060,9 +1060,16 @@ ul {
 
 
 .image-side {
-    background: url("../img/large-pool-with-umbrellas-hammocks.jpg") no-repeat center center;
+    background: url("/assets/img/well-done-steak-homemade-potatoes.jpg") no-repeat center center;
     background-size: cover;
-    height: 140vh;
+    height: 130vh;
+    opacity: 80%;
+}
+
+.image-side2 {
+    background: url("/assets/img/delicious-lobster-gourmet-seafood3.jpg") no-repeat center center;
+    background-size: cover;
+    height: 170vh;
     opacity: 80%;
 }
 
@@ -1091,8 +1098,7 @@ ul {
 }
 
 .login-content {
-    padding: 40px;
-    padding-top: 80px;
+    padding: 50px 40px 0px 40px;
 }
 
 .logo{
