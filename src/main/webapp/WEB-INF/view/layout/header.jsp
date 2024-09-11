@@ -40,7 +40,7 @@
                                 <li><a href="/auth?action=signup">Sign Up</a></li>
                                 <li><a href="/auth?action=login">Sign In</a></li>
                                 <% } else { %>
-                                <li><a href="/auth?action=logout">Logout</a></li>
+                                <li><a href="/auth?action=logout"><i class="fa fa-sign-out" aria-hidden="true"></i>&nbsp;Logout</a></li>
                                 <% } %>
                             </ul>
                         </div>

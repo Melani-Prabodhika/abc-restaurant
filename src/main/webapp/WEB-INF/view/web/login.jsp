@@ -30,7 +30,7 @@
                     <form id="loginForm" method="post" onsubmit="showLoader();">
                         <div class="form-group">
                             <label for="email">Email</label>
-                            <input type="text" class="form-control"  id="email" placeholder="Enter your username"/>
+                            <input type="text" class="form-control"  id="email" placeholder="Enter your email address"/>
                         </div>
                         <div class="form-group">
                             <label for="password">Password</label>
