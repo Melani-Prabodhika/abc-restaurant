@@ -1,37 +1,31 @@
+<%@include file="/WEB-INF/view/layout/header.jsp" %>
+
 <!-- Start Gallery -->
 <div class="main-features" id="experience">
-    <div class="container">
-        <div class="section-title center">
-            <h3><strong>Experience something new</strong></h3>
-            <br>
-            <p class="para">Lorem ipsum dolor sit amet, eu qui modo expeten dis reformidans, ex sit appetere sententiae</p>
-        </div>
+    <div class="container"><br><br><br>
         <div class="row">
             <!--Gallery Column-->
             <div class="experience-column col-lg-4 col-sm-12 col-xs-12">
                 <article class="inner-box">
                     <div class="img-box">
-                        <div class="img"><img src="img/leisure-beautiful-health-garden-landscape.jpg" alt=""></div>
+                        <div class="img"><img src="/assets/img/gallery4.jpg" alt=""></div>
                     </div>
-                    <a href="#" class="text-center"><strong>Title</strong></a>
                 </article>
             </div>
             <!--Gallery Column-->
             <div class="experience-column col-lg-4 col-sm-12 col-xs-12">
                 <article class="inner-box">
                     <div class="img-box">
-                        <div class="img"><img src="img/pexels-koolshooters-8531282.jpg" alt=""></div>
+                        <div class="img"><img src="/assets/img/skewers-with-slices-sweet-peppers-dill.jpg" alt=""></div>
                     </div>
-                    <a href="#" class="text-center"><strong>Title</strong></a>
                 </article>
             </div>
             <!--Gallery Column-->
             <div class="experience-column col-lg-4 col-sm-12 col-xs-12">
                 <article class="inner-box">
                     <div class="img-box">
-                        <div class="img"><img src="img/pexels-jason-boyd-3209049.jpg" alt=""></div>
+                        <div class="img"><img src="/assets/img/gallery3.jpg" alt=""></div>
                     </div>
-                    <a href="#" class="text-center"><strong>Title</strong></a>
                 </article>
             </div>
         </div>
@@ -40,27 +34,24 @@
             <div class="experience-column col-lg-4 col-sm-12 col-xs-12">
                 <article class="inner-box">
                     <div class="img-box">
-                        <div class="img"><img src="img/leisure-beautiful-health-garden-landscape.jpg" alt=""></div>
+                        <div class="img"><img src="/assets/img/gallery8.jpg" alt=""></div>
                     </div>
-                    <a href="#" class="text-center"><strong>Title</strong></a>
                 </article>
             </div>
             <!--Gallery Column-->
             <div class="experience-column col-lg-4 col-sm-12 col-xs-12">
                 <article class="inner-box">
                     <div class="img-box">
-                        <div class="img"><img src="img/pexels-koolshooters-8531282.jpg" alt=""></div>
+                        <div class="img"><img src="/assets/img/gallery2.jpg" alt=""></div>
                     </div>
-                    <a href="#" class="text-center"><strong>Title</strong></a>
                 </article>
             </div>
             <!--Gallery Column-->
             <div class="experience-column col-lg-4 col-sm-12 col-xs-12">
                 <article class="inner-box">
                     <div class="img-box">
-                        <div class="img"><img src="img/pexels-jason-boyd-3209049.jpg" alt=""></div>
+                        <div class="img"><img src="/assets/img/gallery6.jpg" alt=""></div>
                     </div>
-                    <a href="#" class="text-center"><strong>Title</strong></a>
                 </article>
             </div>
         </div>
@@ -69,30 +60,29 @@
             <div class="experience-column col-lg-4 col-sm-12 col-xs-12">
                 <article class="inner-box">
                     <div class="img-box">
-                        <div class="img"><img src="img/pexels-engin-akyurt-2771927.jpg" alt=""></div>
+                        <div class="img"><img src="/assets/img/gallery5.jpg" alt=""></div>
                     </div>
-                    <a href="#" class="text-center"><strong>Title</strong></a>
                 </article>
             </div>
             <!--Gallery Column-->
             <div class="experience-column col-lg-4 col-sm-12 col-xs-12">
                 <article class="inner-box">
                     <div class="img-box">
-                        <div class="img"><img src="img/umbrella-chair.jpg" alt=""></div>
+                        <div class="img"><img src="/assets/img/tartlets-with-pistachios-strawberry-cream-chocolate-side-view.jpg" alt=""></div>
                     </div>
-                    <a href="#" class="text-center"><strong>Title</strong></a>
                 </article>
             </div>
             <!--Gallery Column-->
             <div class="experience-column col-lg-4 col-sm-12 col-xs-12">
                 <article class="inner-box">
                     <div class="img-box">
-                        <div class="img"><img src="img/luxury-classic-modern-bedroom-suite-hotel.jpg" alt=""></div>
+                        <div class="img"><img src="/assets/img/gallery7.jpg" alt=""></div>
                     </div>
-                    <a href="#" class="text-center"><strong>Title</strong></a>
                 </article>
             </div>
         </div>
     </div>
 </div>
 <!-- End Gallery -->
+
+<%@include file="/WEB-INF/view/layout/footer.jsp" %>

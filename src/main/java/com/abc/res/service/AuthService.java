@@ -81,7 +81,13 @@ public class AuthService {
         }
 
         // Save the user to the database
-        return getAuthDao().registerUser(user);
+        boolean success = getAuthDao().registerUser(user);
+        if (success) {
+
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public String loginUser(LoginModel loginModel, HttpServletRequest req) throws SQLException, ClassNotFoundException, NoSuchAlgorithmException {

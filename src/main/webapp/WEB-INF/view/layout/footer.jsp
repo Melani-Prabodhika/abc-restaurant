@@ -1,9 +1,8 @@
-    </div>
-</div>
 <!-- Footer Start  -->
 <div class="footer-section-area padding-top-bottom">
     <div class="container">
         <div class="row">
+
             <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12">
                 <div class="title">
                     <h3>About</h3>
@@ -11,25 +10,27 @@
                 <div class="service">
                     <ul>
                         <li><a href="#">About Restaurant and Branches</a></li>
-                        <li><a href="#">Gallery</a></li>
+                        <li><a href="/gallery">Gallery</a></li>
                         <li><a href="#">Terms & Conditions</a></li>
-                        <li><a href="#"> Privacy Statements</a></li>
+                        <li><a href="#">Privacy Statements</a></li>
                     </ul>
                 </div>
             </div>
+
             <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12">
                 <div class="title">
                     <h3>Quick Links</h3>
                 </div>
                 <div class="contact">
                     <ul>
-                        <li><a href="#">About</a></li>
-                        <li><a href="#">Menu</a></li>
+                        <li><a href="/about">About</a></li>
+                        <li><a href="/menu">Menu</a></li>
                         <li><a href="#">Reservation</a></li>
-                        <li><a href="#">Contact Us</a></li>
+                        <li><a href="/contact">Contact Us</a></li>
                     </ul>
                 </div>
             </div>
+
             <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12">
                 <div class="title">
                     <h3>Opening Hours</h3>
@@ -43,6 +44,7 @@
                     </ul>
                 </div>
             </div>
+
             <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12">
                 <div class="title">
                     <h3>Follow us</h3>
@@ -56,7 +58,7 @@
                         <li><a href="#"><i class="fa fa-youtube-play" aria-hidden="true"></i></a></li>
                     </ul>
                 </div>
-                <div class="white">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Possimus eveniet nobis aliquam quam odio quisquam cupiditate Lorem ipsum dolor sit amet consectetur</div><br>
+                <div class="white">ABC Restaurant provide an exceptional experience that combines great food with warm hospitality.</div><br>
                 <div class="col-lg-8">
                     <div class="title">
                         <h4>Subscribe now</h4>
@@ -71,6 +73,7 @@
                     </div>
                 </div>
             </div>
+
         </div>
     </div>
 </div>

@@ -128,9 +128,9 @@ public class AuthController extends HttpServlet {
             String returnUrl = getAuthService().loginUser(loginModel, req);
 
             if (returnUrl != null) {
-                sendJsonResponse(res, true, "Login successful", returnUrl);
+                sendJsonResponse(res, true, "Login successful!", returnUrl);
             } else {
-                sendJsonResponse(res, false, "Invalid email or password", null);
+                sendJsonResponse(res, false, "Invalid email or password!", null);
             }
 
         } catch (Exception e) {

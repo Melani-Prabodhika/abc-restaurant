@@ -70,6 +70,11 @@ public class AuthDaoImpl implements AuthDao {
 
             try (ResultSet rs = statement.executeQuery()) {
                 if (rs.next()) {
+                    String status = rs.getString("status");
+                    if ("del".equalsIgnoreCase(status)) {
+                        return null;
+                    }
+
                     User user = new User(
                             rs.getInt("ut_id"),
                             rs.getString("user_name"),
