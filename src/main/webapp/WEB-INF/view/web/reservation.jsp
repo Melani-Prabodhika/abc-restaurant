@@ -76,6 +76,8 @@
     </div>
 </div>
 
+<%@ include file="/WEB-INF/view/layout/footer.jsp" %>
+
 <script>
 
     const branches = <%= new Gson().toJson(request.getAttribute("branches")) %>;
@@ -128,4 +130,5 @@
 
 </script>
 
-<%@ include file="/WEB-INF/view/layout/footer.jsp" %>
+</body>
+</html>

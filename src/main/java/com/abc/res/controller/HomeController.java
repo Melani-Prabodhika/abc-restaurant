@@ -1,8 +1,9 @@
 package com.abc.res.controller;
 
-import com.abc.res.model.CommonMsgModel;
-import com.abc.res.model.QueryModel;
+import com.abc.res.model.*;
 import com.abc.res.service.HomeService;
+import com.abc.res.model.MenuItemModel;
+import com.abc.res.service.ReservationService;
 import com.google.gson.Gson;
 
 import javax.servlet.ServletException;
@@ -10,8 +11,13 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.security.NoSuchAlgorithmException;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 @WebServlet("/")
 public class HomeController extends HttpServlet {
@@ -42,7 +48,7 @@ public class HomeController extends HttpServlet {
                 break;
             case "/menu2":
                 req.setAttribute("pageTitle", "Menu");
-                req.getRequestDispatcher("WEB-INF/view/web/customer/menu.jsp").forward(req, res);
+                handleMenu(req, res);
                 break;
             case "/gallery":
                 req.setAttribute("pageTitle", "Gallery");
@@ -51,6 +57,10 @@ public class HomeController extends HttpServlet {
             case "/contact":
                 req.setAttribute("pageTitle", "Contact");
                 req.getRequestDispatcher("WEB-INF/view/web/contact.jsp").forward(req, res);
+                break;
+            case "/order/confirm":
+                req.setAttribute("pageTitle", "Order");
+                req.getRequestDispatcher("/WEB-INF/view/user/customer/order.jsp").forward(req, res);
                 break;
             default:
                 req.setAttribute("pageTitle", "Home");
@@ -104,6 +114,20 @@ public class HomeController extends HttpServlet {
             e.printStackTrace();
         } finally {
             out.flush();
+        }
+    }
+
+    private void handleMenu(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+        List<MenuItemModel> menuItems = new ArrayList<MenuItemModel>();
+        try {
+            menuItems = getHomeService().getAllMenuItems();
+            System.out.println("c" + menuItems);
+            req.setAttribute("menuItems", menuItems);
+        } catch (SQLException | ClassNotFoundException | NoSuchAlgorithmException e) {
+            req.setAttribute("errorMessage", e.getMessage());
+            e.printStackTrace();
+        } finally {
+            req.getRequestDispatcher("WEB-INF/view/user/customer/menu.jsp").forward(req, res);
         }
     }
 

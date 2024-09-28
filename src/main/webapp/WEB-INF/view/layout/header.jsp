@@ -32,6 +32,10 @@
     <!-- Toastr JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
+    <!-- Bootstrap JavaScript and dependencies (Popper.js) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
 
 </head>
 
@@ -64,7 +68,7 @@
                         <div class="row">
 
                             <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
-                                <div class="logo-area"> <a href="#"><img class="img-responsive" src="/assets/img/logo.png" alt="logo"></a></div>
+                                <div class="logo-area"> <a href="/"><img class="img-responsive" src="/assets/img/logo.png" alt="logo"></a></div>
                             </div>
 
                             <div class="col-lg-7 col-md-7 col-sm-9 col-xs-12">
@@ -72,7 +76,6 @@
                                     <nav>
                                         <ul>
                                             <li><a href="/">Home</a></li>
-                                            </li>
                                             <li><a href="/about">About</a></li>
                                             <% if(session.getAttribute("user_id") == null) { %>
                                             <li><a href="/menu1">Menu</a></li>
@@ -81,7 +84,7 @@
                                             <% } %>
                                             <% if (session.getAttribute("user_id") != null) { %>
                                             <li><a href="/menu2">Menu</a></li>
-                                            <li><a href="">Cart</a> </li>
+                                            <li><a href="#" class="cart-link">Cart</a></li>
                                             <li><a href="/reservation">Reservation</a></li>
                                             <li><a href="/profile">Profile</a></li>
                                             <% } %>
@@ -98,7 +101,7 @@
                                             <div class="header-top-search search-box">
                                                 <form>
                                                     <a href="#"><i class="fa fa-search" style="width:10px; height:16px;">
-                                                        <input class="search-text" type="text" placeholder="Search"></i> </a>
+                                                        <input class="search-text" type="text" placeholder="Search" style="color:#000000;"></i> </a>
                                                 </form>
                                             </div>
                                         </li>
@@ -131,11 +134,13 @@
                                     <% } %>
                                     <% if (session.getAttribute("user_id") != null) { %>
                                     <li><a href="/menu2">Menu</a></li>
-                                    <li><a href="">Cart</a> </li>
                                     <li><a href="/reservation">Reservation</a></li>
                                     <li><a href="/profile">Profile</a></li>
                                     <% } %>
                                     <li><a href="/contact">Contact</a></li>
+                                    <% if (session.getAttribute("user_id") != null) { %>
+                                    <li><a href="" id="cart-link" class="cart-link">Cart</a>Cart</button></li>
+                                    <% } %>
                                 </ul>
                             </nav>
                         </div>

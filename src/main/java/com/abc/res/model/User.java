@@ -24,6 +24,10 @@ public class User {
         this.address = address;
     }
 
+    public User() {
+
+    }
+
     // Getters and Setters
     public int getUserId() {
         return userId;

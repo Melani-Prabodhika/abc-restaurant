@@ -67,6 +67,19 @@ public class ReservationModel {
 
     }
 
+    public ReservationModel(int id, String customerName, String customerPhone, String customerEmail, LocalDate reservationDate, LocalTime reservationTime, int numberOfPeople, String reservationType, String specialRequest, String status, String branchName) {
+        this.reservationId = id;
+        this.name = customerName;
+        this.customerPhone = customerPhone;
+        this.customerEmail = customerEmail;
+        this.reservationDate = reservationDate;
+        this.reservationTime = reservationTime;
+        this.numberOfPeople = numberOfPeople;
+        this.reservationType = reservationType;
+        this.branchName = branchName;
+        this.message = specialRequest;
+        this.status = status;
+    }
 
     // Getters and Setters
     public int getReservationId() {

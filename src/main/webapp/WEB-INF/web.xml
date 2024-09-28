@@ -9,6 +9,18 @@
     <welcome-file>index.jsp</welcome-file>
   </welcome-file-list>
 
+  <!-- Filter -->
+  <filter>
+    <filter-name>AuthenticationFilter</filter-name>
+    <filter-class>com.abc.res.utils.filter.AuthenticationFilter</filter-class>
+  </filter>
+
+  <!-- Filter Mapping -->
+  <filter-mapping>
+    <filter-name>AuthenticationFilter</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
+
   <!-- Default servlet mapping for static resources -->
   <servlet-mapping>
     <servlet-name>default</servlet-name>

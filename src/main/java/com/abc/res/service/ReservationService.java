@@ -21,7 +21,7 @@ public class ReservationService {
     private static ReservationService reservationService;
     private BranchDao branchDao;
 
-    private ReservationService() {
+    public ReservationService() {
         branchDao = new BranchDao();
     }
 
@@ -115,5 +115,54 @@ public class ReservationService {
             }
         }
     }
+
+    public List<ReservationModel> getReservationByUserId(int userId) {
+        try {
+            return getReservationDao().getReservationByUserId(userId);
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public List<ReservationModel> getPendingReservations(int BranchId) {
+        try {
+            List<ReservationModel> reservations = getReservationDao().getPendingReservations(BranchId);
+            return reservations;
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public List<ReservationModel> getConfirmReservations(int BranchId) {
+        try {
+            List<ReservationModel> reservations = getReservationDao().getConfirmReservations(BranchId);
+            return reservations;
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public List<ReservationModel> getRejectReservations(int BranchId) {
+        try {
+            List<ReservationModel> reservations = getReservationDao().getRejectReservations(BranchId);
+            return reservations;
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public boolean updateReservationStatus(int reservationId, String status) {
+        try {
+            return getReservationDao().updateReservationStatus(reservationId, status);
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
 }
 

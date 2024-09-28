@@ -48,10 +48,43 @@ public class ReservationDaoImpl implements ReservationDao {
     }
 
     @Override
+    public List<ReservationModel> getReservationByUserId(int userId) throws SQLException, ClassNotFoundException {
+        List<ReservationModel> reservations = new ArrayList<>();
+        String query =  "SELECT r.*, b.branch_name FROM reservation r " +
+                "JOIN branch b ON r.branch_id = b.branch_id " +
+                "WHERE r.user_id = ?";
+
+        try (Connection con = getDbConnection();
+             PreparedStatement statement = con.prepareStatement(query)) {
+
+            statement.setInt(1, userId);
+
+            try (ResultSet rs = statement.executeQuery()) {
+                while (rs.next()) {
+                    int id = rs.getInt("res_id");
+                    String customerName = rs.getString("cus_name");
+                    String customerEmail = rs.getString("cus_email");
+                    String customerPhone = rs.getString("cus_contact");
+                    LocalDate reservationDate = rs.getDate("date").toLocalDate();
+                    LocalTime reservationTime = rs.getTime("time").toLocalTime();
+                    int numberOfPeople = rs.getInt("count");
+                    String specialRequest = rs.getString("message");
+                    String reservationType = rs.getString("type");
+                    String status = rs.getString("status");
+                    String branchName = rs.getString("branch_name");
+
+                    reservations.add(new ReservationModel(id, customerName, customerEmail, customerPhone, reservationDate, reservationTime, numberOfPeople, specialRequest, reservationType, status, branchName));
+                }
+            }
+        }
+        return reservations;
+    }
+
+    @Override
     public List<ReservationModel> getAllReservations(int branchId) throws SQLException, ClassNotFoundException {
         List<ReservationModel> reservations = new ArrayList<>();
         Connection con = getDbConnection();
-        String sql = "SELECT * FROM reservations WHERE branch_id = ?";
+        String sql = "SELECT * FROM reservation WHERE branch_id = ?";
 
         try (PreparedStatement statement = con.prepareStatement(sql)) {
             statement.setInt(1, branchId);
@@ -68,9 +101,126 @@ public class ReservationDaoImpl implements ReservationDao {
                     String reservationType = rs.getString("type");
                     String status = rs.getString("status");
                     LocalDate createdAt = rs.getDate("c_date").toLocalDate();
-                    String branchName = rs.getString("branch_name"); // If you have it, otherwise use a placeholder
+                    String branchName = rs.getString("branch_name");
 
-                    // Ensure branchName is available; otherwise, use a placeholder
+                    // Ensure branchName is available;
+                    branchName = (branchName != null) ? branchName : "Unknown";
+
+                    reservations.add(new ReservationModel(id, customerName, customerPhone, customerEmail, reservationDate,
+                            reservationTime, numberOfPeople, reservationType, branchId, specialRequest, createdAt, branchName));
+                }
+            }
+        } finally {
+            con.close();
+        }
+
+        return reservations;
+    }
+
+    @Override
+    public List<ReservationModel> getPendingReservations(int branchId) throws SQLException, ClassNotFoundException {
+        List<ReservationModel> reservations = new ArrayList<>();
+        Connection con = getDbConnection();
+        String sql = "SELECT r.*, b.branch_name FROM reservation r " +
+                "JOIN branch b ON r.branch_id = b.branch_id " +
+                "WHERE r.branch_id = ? AND r.status = 'pending'";
+
+        try (PreparedStatement statement = con.prepareStatement(sql)) {
+            statement.setInt(1, branchId);
+            try (ResultSet rs = statement.executeQuery()) {
+                while (rs.next()) {
+                    int id = rs.getInt("res_id");
+                    String customerName = rs.getString("cus_name");
+                    String customerEmail = rs.getString("cus_email");
+                    String customerPhone = rs.getString("cus_contact");
+                    LocalDate reservationDate = rs.getDate("date").toLocalDate();
+                    LocalTime reservationTime = rs.getTime("time").toLocalTime();
+                    int numberOfPeople = rs.getInt("count");
+                    String specialRequest = rs.getString("message");
+                    String reservationType = rs.getString("type");
+                    String status = rs.getString("status");
+                    LocalDate createdAt = rs.getDate("c_date").toLocalDate();
+                    String branchName = rs.getString("branch_name");
+
+                    // Ensure branchName is available;
+                    branchName = (branchName != null) ? branchName : "Unknown";
+
+                    reservations.add(new ReservationModel(id, customerName, customerPhone, customerEmail, reservationDate,
+                            reservationTime, numberOfPeople, reservationType, branchId, specialRequest, createdAt, branchName));
+                }
+            }
+        } finally {
+            con.close();
+        }
+
+        return reservations;
+    }
+
+    @Override
+    public List<ReservationModel> getConfirmReservations(int branchId) throws SQLException, ClassNotFoundException {
+        List<ReservationModel> reservations = new ArrayList<>();
+        Connection con = getDbConnection();
+        String sql = "SELECT r.*, b.branch_name FROM reservation r " +
+                "JOIN branch b ON r.branch_id = b.branch_id " +
+                "WHERE r.branch_id = ? AND r.status = 'confirmed'";
+
+        try (PreparedStatement statement = con.prepareStatement(sql)) {
+            statement.setInt(1, branchId);
+            try (ResultSet rs = statement.executeQuery()) {
+                while (rs.next()) {
+                    int id = rs.getInt("res_id");
+                    String customerName = rs.getString("cus_name");
+                    String customerEmail = rs.getString("cus_email");
+                    String customerPhone = rs.getString("cus_contact");
+                    LocalDate reservationDate = rs.getDate("date").toLocalDate();
+                    LocalTime reservationTime = rs.getTime("time").toLocalTime();
+                    int numberOfPeople = rs.getInt("count");
+                    String specialRequest = rs.getString("message");
+                    String reservationType = rs.getString("type");
+                    String status = rs.getString("status");
+                    LocalDate createdAt = rs.getDate("c_date").toLocalDate();
+                    String branchName = rs.getString("branch_name");
+
+                    // Ensure branchName is available;
+                    branchName = (branchName != null) ? branchName : "Unknown";
+
+                    reservations.add(new ReservationModel(id, customerName, customerPhone, customerEmail, reservationDate,
+                            reservationTime, numberOfPeople, reservationType, branchId, specialRequest, createdAt, branchName));
+                }
+            }
+        } finally {
+            con.close();
+        }
+
+        return reservations;
+    }
+
+    @Override
+    public List<ReservationModel> getRejectReservations(int branchId) throws SQLException, ClassNotFoundException {
+        List<ReservationModel> reservations = new ArrayList<>();
+        Connection con = getDbConnection();
+        String sql = "SELECT r.*, b.branch_name FROM reservation r " +
+                "JOIN branch b ON r.branch_id = b.branch_id " +
+                "WHERE r.branch_id = ? AND r.status = 'rejected'";
+
+        try (PreparedStatement statement = con.prepareStatement(sql)) {
+            statement.setInt(1, branchId);
+            try (ResultSet rs = statement.executeQuery()) {
+                while (rs.next()) {
+                    int id = rs.getInt("res_id");
+                    String customerName = rs.getString("cus_name");
+                    String customerEmail = rs.getString("cus_email");
+                    String customerPhone = rs.getString("cus_contact");
+                    LocalDate reservationDate = rs.getDate("date").toLocalDate();
+                    LocalTime reservationTime = rs.getTime("time").toLocalTime();
+                    int numberOfPeople = rs.getInt("count");
+                    String specialRequest = rs.getString("message");
+                    String reservationType = rs.getString("type");
+                    String status = rs.getString("status");
+                    LocalDate createdAt = rs.getDate("c_date").toLocalDate();
+                    String branchName = rs.getString("branch_name");
+
+                    // Ensure branchName is available;
                     branchName = (branchName != null) ? branchName : "Unknown";
 
                     reservations.add(new ReservationModel(id, customerName, customerPhone, customerEmail, reservationDate,
@@ -87,7 +237,7 @@ public class ReservationDaoImpl implements ReservationDao {
     @Override
     public boolean updateReservationStatus(int reservationId, String status) throws SQLException, ClassNotFoundException {
         Connection con = getDbConnection();
-        String sql = "UPDATE reservations SET status = ? WHERE res_id = ?";
+        String sql = "UPDATE reservation SET status = ? WHERE res_id = ?";
         PreparedStatement statement = con.prepareStatement(sql);
 
         try {

@@ -41,6 +41,8 @@
     </div>
 </div>
 
+<%@include file="/WEB-INF/view/layout/footer.jsp" %>
+
 <script>
     $(document).ready(function () {
         $('#conForm').on('submit', function (event) {
@@ -79,5 +81,6 @@
 
 </script>
 
-<%@include file="/WEB-INF/view/layout/footer.jsp" %>
+</body>
+</html>
 

@@ -24,40 +24,6 @@
 
 <script>
     $(document).ready(function() {
-        //$('#tblId').DataTable({
-           // dom: 'Bfrtip',
-            //buttons: [
-              //  'copyHtml5',
-              //  'excelHtml5',
-              //  'pdfHtml5'
-           // ]
-       // });
-
-        function init_dataTable(selector){
-            DataTablesForAjax = $(selector).DataTable({
-                pageLength: 50,
-                responsive: true,
-                dom: '<"html5buttons"B>lTfgitp',
-                buttons: [
-                    {extend: 'copy'},
-                    {extend: 'csv'},
-                    {extend: 'excel', title: 'ExampleFile'},
-                    {extend: 'pdf', title: 'ExampleFile'},
-
-                    {extend: 'print',
-                        customize: function (win){
-                            $(win.document.body).addClass('white-bg');
-                            $(win.document.body).css('font-size', '10px');
-
-                            $(win.document.body).find('table')
-                                .addClass('compact')
-                                .css('font-size', 'inherit');
-                        }
-                    }
-                ]
-
-            });
-        }
 
         // Automatically collapse other dropdowns when one is expanded
         $('.side-nav .nav-item .collapse').on('show.bs.collapse', function () {
@@ -65,5 +31,3 @@
         });
     });
 </script>
-</body>
-</html>

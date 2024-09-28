@@ -3,6 +3,7 @@
 <!-- Start Gallery -->
 <div class="main-features" id="experience">
     <div class="container"><br><br><br>
+        <h1 class="text-center"><strong>GALLERY</strong></h1><br>
         <div class="row">
             <!--Gallery Column-->
             <div class="experience-column col-lg-4 col-sm-12 col-xs-12">
@@ -86,3 +87,6 @@
 <!-- End Gallery -->
 
 <%@include file="/WEB-INF/view/layout/footer.jsp" %>
+
+</body>
+</html>

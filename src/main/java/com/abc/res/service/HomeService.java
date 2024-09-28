@@ -1,20 +1,25 @@
 package com.abc.res.service;
 
+import com.abc.res.dao.MenuItemDao;
+import com.abc.res.dao.MenuItemDaoImpl;
 import com.abc.res.dao.QueryDao;
 import com.abc.res.dao.QueryDaoImpl;
 import com.abc.res.model.CommonMsgModel;
+import com.abc.res.model.MenuItemModel;
 import com.abc.res.model.QueryModel;
+import com.abc.res.model.ReservationModel;
 
 import javax.servlet.http.HttpServletRequest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.regex.Pattern;
 
 public class HomeService {
 
     private static HomeService homeService;
 
-    private HomeService() {}
+    public HomeService() {}
 
     public static synchronized HomeService getHomeService() {
         if (homeService == null) {
@@ -25,6 +30,10 @@ public class HomeService {
 
     private QueryDao getQueryDao() {
         return new QueryDaoImpl();
+    }
+
+    private MenuItemDao getMenuItemDao() {
+        return new MenuItemDaoImpl();
     }
 
     public CommonMsgModel addQuery(QueryModel queryModel, HttpServletRequest req) throws SQLException, NoSuchAlgorithmException, ClassNotFoundException {
@@ -53,5 +62,20 @@ public class HomeService {
             }
         }
     }
+
+    public List<QueryModel> getAllQueries() {
+        try {
+            List<QueryModel> queries = getQueryDao().getAllQueries();
+            return queries;
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public List<MenuItemModel> getAllMenuItems() throws SQLException, ClassNotFoundException, NoSuchAlgorithmException {
+        return getMenuItemDao().getAllMenuItems();
+    }
+
 }
 

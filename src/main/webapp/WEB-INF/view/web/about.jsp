@@ -7,7 +7,7 @@
 
             <div class="col-lg-6 col-md-12 col-sm-12 text-area" style="padding: 0px 30px 0px 60px; text-align: justify; text-justify: inter-word;">
                 <div class="about-text">
-                    <h3>Our Story</h3><br>
+                    <h3>OUR STORY</h3><br>
                     <div class="about-text-content">
                         Established with a passion for creating memorable dining experiences, ABC Restaurant is a place where flavor, quality, and hospitality meet. Located in the heart of the city, our restaurant has become a beloved destination for those seeking both comfort food and culinary innovation. From the warm ambiance to the carefully curated menu, we aim to provide an unforgettable experience with every visit.<br>
 
@@ -36,5 +36,7 @@
 </div>
 <!-- End About -->
 
-
 <%@include file="/WEB-INF/view/layout/footer.jsp" %>
+
+</body>
+</html>

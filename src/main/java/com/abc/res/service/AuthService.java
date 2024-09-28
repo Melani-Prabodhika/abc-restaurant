@@ -41,8 +41,7 @@ public class AuthService {
 
     private String determineRedirectUrl(int ut_id, String contextPath) {
         return switch (ut_id) {
-            case 1 -> contextPath + "/admin";
-            case 2 -> contextPath + "/staff";
+            case 1, 2 -> contextPath + "/user/dashboard";
             default -> contextPath + "/";
         };
     }
