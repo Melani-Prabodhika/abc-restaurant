@@ -134,20 +134,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr>
-          <td>98765</td>
-          <td>2024-09-12</td>
-          <td>Pasta, Garlic Bread</td>
-          <td>2,300.00</td>
-          <td>Delivered</td>
-        </tr>
-        <tr>
-          <td>98766</td>
-          <td>2024-09-14</td>
-          <td>Pizza, Soda</td>
-          <td>3,150.00</td>
-          <td>In Progress</td>
-        </tr>
+
         </tbody>
       </table>
     </div>
@@ -193,6 +180,7 @@
     %>
 
   const reservations = <%= gson.toJson(request.getAttribute("reservations")) %>;
+  const orders = <%= gson.toJson(request.getAttribute("orders")) %>;
 
   $(document).ready(function () {
     var tableBody = document.querySelector("#reservations-table tbody");
@@ -227,7 +215,7 @@
         type: 'POST',
         data: {
           reservationId: reservationId,
-          status: 'cancel'
+          status: 'canceled'
         },
         success: function (response) {
           if (response.success) {
@@ -249,6 +237,38 @@
     });
 
   });
+
+  const ordersTableBody = document.querySelector("#orders-table tbody");
+
+  ordersTableBody.innerHTML = "";
+
+  orders.forEach((order) => {
+    const row = document.createElement("tr");
+
+    const orderIdCell = document.createElement("td");
+    orderIdCell.textContent = order.id;
+
+    const orderDateCell = document.createElement("td");
+    orderDateCell.textContent = order.orderDate;
+
+    const itemsCell = document.createElement("td");
+    itemsCell.textContent = order.orderItems.map((item) => item.name).join(", ");
+
+    const totalCell = document.createElement("td");
+    totalCell.textContent = order.totalAmount.toFixed(2);
+
+    const statusCell = document.createElement("td");
+    statusCell.textContent = order.orderStatus.charAt(0).toUpperCase() + order.orderStatus.slice(1);
+
+    row.appendChild(orderIdCell);
+    row.appendChild(orderDateCell);
+    row.appendChild(itemsCell);
+    row.appendChild(totalCell);
+    row.appendChild(statusCell);
+
+    ordersTableBody.appendChild(row);
+  });
+
 </script>
 
 </body>

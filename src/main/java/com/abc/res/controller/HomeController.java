@@ -58,10 +58,6 @@ public class HomeController extends HttpServlet {
                 req.setAttribute("pageTitle", "Contact");
                 req.getRequestDispatcher("WEB-INF/view/web/contact.jsp").forward(req, res);
                 break;
-            case "/order/confirm":
-                req.setAttribute("pageTitle", "Order");
-                req.getRequestDispatcher("/WEB-INF/view/user/customer/order.jsp").forward(req, res);
-                break;
             default:
                 req.setAttribute("pageTitle", "Home");
                 handleHome(req, res);

@@ -68,8 +68,8 @@
             <div class="collapse" id="menu4">
                 <ul class="nav flex-column">
                     <li class="nav-item"><a class="nav-link" href="/user/orders/pending">Pending Orders</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/user/orders/confirmed">Confirmed Orders</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/user/orders/rejected">Rejected Orders</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/user/orders/confirmed">Other Orders</a></li>
+                    <!--<li class="nav-item"><a class="nav-link" href="/user/orders/rejected">Rejected Orders</a></li>-->
                 </ul>
             </div>
             </li>

@@ -162,17 +162,29 @@
           </div>
         </div>
       </div>
-      <button class="proceed-btn">Proceed to Payment</button>
+      <button class="proceed-btn" onclick="submitOrder()">Proceed to Payment</button>
     </div>
   </div><br>
+  <form id="payment-form" class="mt-4 bg-dark-gray p-4 rounded shadow" style="display: none;">
+    <h3 class="text-amber mb-4">Payment Details</h3>
+    <div id="payment-element" class="mb-4">
+      <!-- Stripe Elements will create form elements here -->
+    </div>
+    <button id="submit" class="btn btn-amber w-100">Pay now</button>
+    <div id="error-message" class="text-danger mt-2">
+      <!-- Display error message to your customers here -->
+    </div>
+  </form>
 </div>
 
 <%@include file="/WEB-INF/view/layout/footer.jsp" %>
+<script src="https://js.stripe.com/v3/"></script>
 
 <script>
+  var cartItemsJson = localStorage.getItem('cartItems');
   $(document).ready(function() {
     // Retrieve cart items from local storage
-    var cartItemsJson = localStorage.getItem('cartItems');
+
 
     if (cartItemsJson) {
       // Parse JSON string to object
@@ -200,6 +212,103 @@
       $('.order-summary .total span').text('LKR 0.00');
     }
   });
+
+  const userId = <%= session.getAttribute("user_id") %>
+
+  var cartItems = JSON.parse(cartItemsJson);
+
+  function submitOrder() {
+    const orderData = {
+      user_id: userId,
+      deliveryMethod: $('#delivery-method').val(),
+      branch_id: $('#branch').val(),
+      address: $('#address').val(),
+      contactNumber: $('#contact-number').val(),
+      orderItems: cartItems.map(item => ({
+        menuItemId: item.id,
+        quantity: item.quantity,
+        price: item.price,
+        name: item.name
+      }))
+    };
+
+    $.ajax({
+      url: '/order/submit',
+      type: 'POST',
+      contentType: 'application/json',
+      data: JSON.stringify(orderData),
+      success: function(response) {
+        console.log('Order submitted successfully:', response);
+        if(response.success) {
+          $('#order-modal').hide()
+          localStorage.removeItem('cartItems');
+          initializeStripePayment(response.clientSecret, response.orderId);
+        } else {
+          toastr.error(response.message);
+        }
+      },
+      error: function(xhr, status, error) {
+        console.error('Order submission error:', error);
+        console.error('Response:', xhr.responseText);
+        toastr.error('There was an error submitting your order. Please try again.');
+      }
+    });
+  }
+
+  function initializeStripePayment(clientSecret, orderId) {
+    console.log('Initializing Stripe payment. Client Secret:', clientSecret, 'Order ID:', orderId);
+
+    if (!clientSecret || !orderId) {
+      console.error('Missing client secret or order ID');
+      $('#error-message').text('Unable to initialize payment. Please try again.');
+      return;
+    }
+
+    try {
+      const stripe = Stripe('pk_test_51Q46QiKoRYrQwmA5upg23tXmSjFgupgVftJb4S5lDrB408BjB0uP2V73S244M4g82COwmDo76YFLSM7DREm22aaF007CyNQ8B2');
+
+      const appearance = {
+        theme: 'stripe'
+      };
+
+      const elements = stripe.elements({ clientSecret, appearance });
+      const paymentElement = elements.create('payment');
+
+      $('#payment-form').show();
+
+      setTimeout(() => {
+        paymentElement.mount('#payment-element');
+        console.log('Payment element mounted successfully');
+      }, 100);
+
+      $('#payment-form').off('submit').on('submit', async function (event) {
+        event.preventDefault();
+        console.log('Confirming payment for Order ID:', orderId);
+
+        try {
+          const { error } = await stripe.confirmPayment({
+            elements,
+            confirmParams: {
+              return_url: `http://localhost:8080/order/confirmation?id=${encodeURIComponent(orderId)}`,
+            },
+          });
+
+          if (error) {
+            console.error('Stripe payment error:', error);
+            $('#error-message').text(error.message);
+          } else {
+            console.log('Payment successful');
+          }
+        } catch (stripeError) {
+          console.error('Error in stripe.confirmPayment:', stripeError);
+          $('#error-message').text('An unexpected error occurred. Please try again.');
+        }
+      });
+    } catch (initError) {
+      console.error('Error initializing Stripe:', initError);
+      $('#error-message').text('Unable to initialize payment system. Please try again later.');
+    }
+  }
 </script>
 
 

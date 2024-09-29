@@ -1,6 +1,8 @@
 package com.abc.res.controller;
 
+import com.abc.res.model.OrderModel;
 import com.abc.res.model.ReservationModel;
+import com.abc.res.service.OrderService;
 import com.abc.res.service.ReservationService;
 import com.google.gson.Gson;
 
@@ -12,21 +14,33 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.security.NoSuchAlgorithmException;
+import java.sql.SQLException;
 import java.util.List;
 
 @WebServlet("/profile")
 public class ProfileController extends HttpServlet {
 
     private ReservationService reservationService;
+    private OrderService orderService;
 
     @Override
     public void init() throws ServletException {
         reservationService = new ReservationService();
+        orderService = new OrderService();
     }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-        handleReservationGet(req, res);
+        try {
+            handleReservationGet(req, res);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException(e);
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
@@ -54,7 +68,7 @@ public class ProfileController extends HttpServlet {
         }
     }
 
-    protected void handleReservationGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+    protected void handleReservationGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException, SQLException, NoSuchAlgorithmException, ClassNotFoundException {
         HttpSession session = req.getSession();
         Integer userId = (Integer) session.getAttribute("user_id");
 
@@ -65,8 +79,10 @@ public class ProfileController extends HttpServlet {
         }
 
         List<ReservationModel> reservations = reservationService.getReservationByUserId(userId);
+        List<OrderModel> orders = orderService.getAllOrdersByUserId(userId);
 
         req.setAttribute("reservations", reservations);
+        req.setAttribute("orders", orders);
         req.getRequestDispatcher("/WEB-INF/view/user/customer/profile.jsp").forward(req, res);
     }
 

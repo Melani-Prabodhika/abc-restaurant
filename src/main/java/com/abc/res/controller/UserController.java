@@ -3,6 +3,7 @@ package com.abc.res.controller;
 import com.abc.res.dao.MenuItemDao;
 import com.abc.res.model.*;
 import com.abc.res.service.HomeService;
+import com.abc.res.service.OrderService;
 import com.abc.res.service.ReservationService;
 import com.abc.res.service.UserService;
 import com.google.gson.Gson;
@@ -29,11 +30,14 @@ public class UserController extends HttpServlet {
 
     private UserService userService;
 
+    public OrderService orderService;
+
     @Override
     public void init() throws ServletException {
         reservationService = new ReservationService();
         homeService = new HomeService();
         userService = new UserService();
+        orderService = new OrderService();
     }
 
     @Override
@@ -67,12 +71,28 @@ public class UserController extends HttpServlet {
 
             case "/orders/pending":
                 req.setAttribute("pageTitle", "Pending Orders");
-                req.getRequestDispatcher("/WEB-INF/view/user/admin/order/o_pending.jsp").forward(req, res);
+                try {
+                    handlePendingOrdersGet(req, res);
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                } catch (NoSuchAlgorithmException e) {
+                    throw new RuntimeException(e);
+                } catch (ClassNotFoundException e) {
+                    throw new RuntimeException(e);
+                }
                 break;
 
             case "/orders/confirmed":
                 req.setAttribute("pageTitle", "Confirmed Orders");
-                req.getRequestDispatcher("/WEB-INF/view/user/admin/order/o_confirmed.jsp").forward(req, res);
+                try {
+                    handleOtherOrdersGet(req, res);
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                } catch (NoSuchAlgorithmException e) {
+                    throw new RuntimeException(e);
+                } catch (ClassNotFoundException e) {
+                    throw new RuntimeException(e);
+                }
                 break;
 
             case "/orders/rejected":
@@ -209,6 +229,34 @@ public class UserController extends HttpServlet {
         } finally {
             req.getRequestDispatcher("/WEB-INF/view/user/admin/menu_item/menu_list.jsp").forward(req, res);
         }
+    }
+
+    private void handlePendingOrdersGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException, SQLException, NoSuchAlgorithmException, ClassNotFoundException {
+        HttpSession session = req.getSession();
+        Integer branchId = (Integer) session.getAttribute("branch_id");
+
+        if (branchId == null) {
+            res.sendRedirect("/");
+            return;
+        }
+
+        List<OrderModel> orders = orderService.getAllPendingOrders(branchId);
+        req.setAttribute("orders", orders);
+        req.getRequestDispatcher("/WEB-INF/view/user/admin/order/o_pending.jsp").forward(req, res);
+    }
+
+    private void handleOtherOrdersGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException, SQLException, NoSuchAlgorithmException, ClassNotFoundException {
+        HttpSession session = req.getSession();
+        Integer branchId = (Integer) session.getAttribute("branch_id");
+
+        if (branchId == null) {
+            res.sendRedirect("/");
+            return;
+        }
+
+        List<OrderModel> orders = orderService.getAllOtherOrders(branchId);
+        req.setAttribute("orders", orders);
+        req.getRequestDispatcher("/WEB-INF/view/user/admin/order/o_confirmed.jsp").forward(req, res);
     }
 
 }
